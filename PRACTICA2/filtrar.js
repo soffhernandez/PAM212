@@ -6,4 +6,8 @@ const productos = [
 
 ];
 
-console.log(nombres);
+
+let filtrar = productos.filter(producto => producto.precio >1000);
+console.log(filtrar);
+let nuevo = filtrar.map (filtra => filtra.nombre);
+console.log(nuevo);
