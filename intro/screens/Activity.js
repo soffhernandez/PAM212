@@ -3,7 +3,7 @@ import { Text, StyleSheet, View } from 'react-native'
 export default function BotonesScreen(){
     return (
       <View>
-        <Text>BotonesScreen proximamente...</Text>
+        <Text>Activity  proximamente...</Text>
       </View>
     )
 }

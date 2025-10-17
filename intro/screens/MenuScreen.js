@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, Button } from 'react-native';
 import ContadorScreen from './ContadorScreen';
-import BotonesScreen from './BotonesScreen';
+import BotonesScreen from './Botones/BotonesScreen';
 import ImagenesScreen from './ImagenesScreen';
-
+import TextScreen from './TextScreen' ;
+import Scrollview from './Scrollview';
+import Activity from './Activity';
+import Flatlist from './Flatlist';
+import Modal from './Modal';
+import BottomsScreent from './BottomsScreent';
 
 export default function MenuScreen() {
   const [screen, setScreen] = useState('menu');
@@ -19,22 +24,22 @@ switch (screen) {
       return <ImagenesScreen />;
 
     case 'textinputalert':
-      return <TextInputAlertScreen />;
+      return <TextScreen />;
 
     case 'scrollview':
-      return <ScrollViewScreen />;
+      return <Scrollview />;
 
     case 'activity':
-      return <ActivityIndicatorScreen />;
+      return <Activity />;
 
     case 'flatlist':
-      return <FlatListSectionListScreen />;
+      return <Flatlist />;
 
     case 'modal':
-      return <ModalScreen />;
+      return <Modal />;
 
     case 'bottomsheet':
-      return <BottomSheetScreen />;
+      return <BottomsScreent />;
 
     case 'menu':
     default:
@@ -43,15 +48,15 @@ switch (screen) {
           <Text style={styles.texto2}>Menú de prácticas</Text>
 
           <View style={styles.contenedorBotones}>
-            <Button onPress={() => setScreen('contador')} title="Pract: Contador" />
+            <Button color={'blue'} onPress={() => setScreen('contador')} title="Pract: Contador" />
             <Button onPress={() => setScreen('botones')} title="Prac: Botones" />
             <Button onPress={() => setScreen('imagen')} title="Prac: ImageBackground y SplashScreen" />
-            <Button onPress={() => setScreen('imagen')} title="Prac: Text Input y Alert" />
-            <Button onPress={() => setScreen('contador')} title="Prac: Scrollview" />
-            <Button onPress={() => setScreen('botones')} title="Prac: Activity Indicator" />
-            <Button onPress={() => setScreen('contador')} title="Prac: FlatList y Section List" />
-            <Button onPress={() => setScreen('botones')} title="Prac: Modal" />
-            <Button onPress={() => setScreen('botones')} title="Prac: BottomSheet" />
+            <Button onPress={() => setScreen('textinputalert')} title="Prac: Text Input y Alert" />
+            <Button onPress={() => setScreen('scrollview')} title="Prac: Scrollview" />
+            <Button onPress={() => setScreen('activity')} title="Prac: Activity Indicator" />
+            <Button onPress={() => setScreen('flatlist')} title="Prac: FlatList y Section List" />
+            <Button onPress={() => setScreen('modal')} title="Prac: Modal" />
+            <Button onPress={() => setScreen('bottomsheet')} title="Prac: BottomSheet" />
           </View>
         </View>
       );

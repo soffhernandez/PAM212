@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Animated, StyleSheet, Dimensions } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-import { Button } from "react-native-web";
 import { ImageBackground } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
@@ -20,7 +19,6 @@ export default function SplashScreenPro() {
   
 
   useEffect(() => {
-    // Animación inicial del logo: fade + scale + rotación
     Animated.parallel([
       Animated.timing(fadeLogo, {
         toValue: 1,
@@ -70,7 +68,7 @@ export default function SplashScreenPro() {
   if (showMain) {
     return (
     <ImageBackground
-      source={require("../assets/fondo3.png")}
+      source={require("../assets/descarga.jpeg")}
       style={styles.background}
       resizeMode='cover' // 'cover' hace que la imagen llene toda la pantalla
     >
@@ -89,7 +87,7 @@ export default function SplashScreenPro() {
   return (
     <Animated.View style={[styles.container, { opacity: fadeOut }]}>
       <Animated.Image
-        source={require("../assets/icono.jpg")}
+        source={require("../assets/descarga.jpeg")}
         resizeMode="contain"
         style={[
           styles.logoImage,
