@@ -15,8 +15,7 @@ export default function App() {
       <View style={styles.contenedorBotones}>
       <Button title='Incrementar'onPress={()=>setContador(contador+1)}/>
         <Button title='Quitar' onPress={()=>setContador(contador-1)}/>
-          <Button title='Reiniciar' onPress={()=>setContador(contador-contador)}/>
-      </View>
+          <Button title='Reiniciar' onPress={()=>setContador(contador-contador)}/></View>
       <StatusBar style="auto"/>
     </View>
 
