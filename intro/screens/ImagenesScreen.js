@@ -66,7 +66,7 @@ export default function SplashScreenPro() {
       toValue: 0,          // se mueve hacia su posición final (arriba)
       duration: 1000,      // 1 segundo
       useNativeDriver: false,
-      delay: 800,          // empieza un poco después del logo
+      delay: 800,         
     }).start();
 
     // === Tercera parte: desaparecer el splash y mostrar el contenido principal ===

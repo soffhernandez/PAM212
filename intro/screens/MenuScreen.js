@@ -4,11 +4,12 @@ import ContadorScreen from './ContadorScreen';
 import BotonesScreen from './Botones/BotonesScreen';
 import ImagenesScreen from './ImagenesScreen';
 import TextScreen from './TextScreen' ;
-import Scrollview from './Scrollview';
 import Activity from './Activity';
 import Flatlist from './Flatlist';
 import Modal from './Modal';
 import BottomsScreent from './BottomsScreent';
+import SimpleScrollView from './Scrollview'
+import SimpleScrollView2 from './scrollVertical'
 
 export default function MenuScreen() {
   const [screen, setScreen] = useState('menu');
@@ -27,7 +28,10 @@ switch (screen) {
       return <TextScreen />;
 
     case 'scrollview':
-      return <Scrollview />;
+      return <SimpleScrollView/>;
+
+     case 'scrollVertical':
+      return <SimpleScrollView2 />;
 
     case 'activity':
       return <Activity />;
@@ -52,7 +56,8 @@ switch (screen) {
             <Button onPress={() => setScreen('botones')} title="Prac: Botones" />
             <Button onPress={() => setScreen('imagen')} title="Prac: ImageBackground y SplashScreen" />
             <Button onPress={() => setScreen('textinputalert')} title="Prac: Text Input y Alert" />
-            <Button onPress={() => setScreen('scrollview')} title="Prac: Scrollview" />
+            <Button onPress={() => setScreen('scrollview')} title="Prac: Scrollview Horizontal" />
+            <Button onPress={() => setScreen('scrollVertical')} title="Prac: Scrollview Vertical" />
             <Button onPress={() => setScreen('activity')} title="Prac: Activity Indicator" />
             <Button onPress={() => setScreen('flatlist')} title="Prac: FlatList y Section List" />
             <Button onPress={() => setScreen('modal')} title="Prac: Modal" />
