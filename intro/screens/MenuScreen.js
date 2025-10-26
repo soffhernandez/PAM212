@@ -10,6 +10,7 @@ import Modal from './Modal';
 import BottomsScreent from './BottomsScreent';
 import SimpleScrollView from './Scrollview'
 import SimpleScrollView2 from './scrollVertical'
+import Repaso from './Repaso';
 
 export default function MenuScreen() {
   const [screen, setScreen] = useState('menu');
@@ -45,6 +46,9 @@ switch (screen) {
     case 'bottomsheet':
       return <BottomsScreent />;
 
+      case 'repaso':
+  return <Repaso/>;
+
     case 'menu':
     default:
       return (
@@ -62,6 +66,8 @@ switch (screen) {
             <Button onPress={() => setScreen('flatlist')} title="Prac: FlatList y Section List" />
             <Button onPress={() => setScreen('modal')} title="Prac: Modal" />
             <Button onPress={() => setScreen('bottomsheet')} title="Prac: BottomSheet" />
+            <Button onPress={() => setScreen('repaso')} title="Prac: Actividad de repaso" />
+
           </View>
         </View>
       );
