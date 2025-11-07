@@ -133,8 +133,7 @@ export default function SplashScreenPro() {
       {/* Texto animado que sube desde abajo */}
       <Animated.Text
         style={[styles.text, { transform: [{ translateY: slideText }] }]}
-      >
-        ¡ImageBackground & Splash Screen!
+      >¡ImageBackground & Splash Screen!
       </Animated.Text>
 
       {/* Barra animada que da efecto de "cargando" */}
