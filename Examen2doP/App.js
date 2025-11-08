@@ -1,99 +1,88 @@
-// import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
 
+import { Button, ImageBackground, ScrollView, StyleSheet, Text, View} from 'react-native-web';
 
-// const SimpleHeader = () => {
-//   return (
-//     <View style ={styles.header}>
-//     <View style={styles.header}>
-//       <Text style={styles.title}>ScrollView Vertical</Text>
-//     </View>
-//      </View>
-//   );
-// };
-
-// export default function App() {
-  
-
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
-// Importamos React y los componentes necesarios
-import React from 'react';
-import { ScrollView, StyleSheet, Text, View} from 'react-native-web';
-
-// Array con 10 elementos para mapear en tarjetas
 const DATA = [
  {id:1},
  {id:2},
  {id:3},
- {id:4},
- {id:5},
- {id:6},
- {id:7},
- {id:8},
- {id:9},
- {id:10},
+
 ]; 
 
-// Componente del encabezado
 const SimpleHeader = () => {
   return (
-    <View style={styles.header}>
+    <View style ={styles.header}>
       <Text style={styles.title}>EL RINCÓN DEL CHISME</Text>
     </View>
   );
 };
 
-const SimpleScrollView = () => {
+const SimpleScrollView2 = () => {
   return (
     <View>
-         <View style={styles.container}></View>
-      {/* ScrollView permite hacer scroll vertical por defecto */}
-        <SimpleHeader />
-      <ScrollView
-        showsVerticalScrollIndicator={false} // Oculta la barra de scroll
-      >
-        {/* Mapeamos las tarjetas */}
+      <SimpleHeader/>
+   
+      <ScrollView 
+      showVerticalScrollIndicator={false}>
         {DATA.map(val => {
           return (
-                     <View style={styles.card} key={val.id}>
-              <Text style={styles.subtitle}>¡Soy una tarjeta!</Text>
+            <View style={styles.card} key = {val.id}>
+                 <Text style={styles.subtitle}> Nombre: El medio ambiente</Text>
+             <Text style={styles.subtitle}> zi</Text>
+              <Button title="Presionar" onPress={() => alert("Leer más")} />
             </View>
           );
         })}
-        </ScrollView>
-    </View>
+
+            {DATA.map(val => {
+          return (
+            <View style={styles.card} key = {val.id}>
+                 <Text style={styles.subtitle}> Nombre: El medio ambiente</Text>
+             <Text style={styles.subtitle}> zi</Text>
+              <Button title="Presionar" onPress={() => alert("Leer más")} />
+            </View>
+          );
+        })}
+
+
+            {DATA.map(val => {
+          return (
+            <View style={styles.card} key = {val.id}>
+                 <Text style={styles.subtitle}> Nombre: Mejores lugares de comida</Text>
+             <Text style={styles.subtitle}> zi</Text>
+              <Button title="Presionar" onPress={() => alert("Leer más")} />
+            </View>
+          );
+        })}
+    </ScrollView>
+  </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   header: {
     height: 120,
-      },
+    backgroundColor: '#000000ff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 0,
+  },
   title: {
     color: '#fff',
-     fontWeight: 'bold',   // ✅ corregido
+    fontWeigt: 'bold',
     fontSize: 20,
   },
   card: {
     height: 100,
+    length:100,
     backgroundColor: '#E6DDC4',
-     marginTop: 10,
-    justifyContent: 'center',
+    marginTop: 10, 
+    //justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 10,
-     subtitle: {
+  },
+  subtitle: {
     color: '#181D31',
     fontWeight: 'bold',
-      },
-      },
+  },
 });
