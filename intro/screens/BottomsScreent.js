@@ -1,71 +1,55 @@
-import React, { useState } from 'react';
-import { Modal, View, Text, Button, StyleSheet, } from 'react-native';
+import React, {useRef, useMemo } from 'react';
+import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
-  const [modalVisible, setModalVisible] = useState(false); // STATE: controla si modal está abierto
+  const bottomSheetRef = useRef(null);
+  const snap = useMemo(() => [1, '25%', '50%']);
 
-  const abrirModal = () => {
-    setModalVisible(true);
-  };
-
-  const cerrarModal = () => {
-    setModalVisible(false);
+  const abrir = () =>{
+    bottomSheetRef.current?.expand();
   };
 
   return (
+    <GestureHandlerRootView>
     <View style={styles.container}>
-      <Text style={styles.title}>Ejemplo del componente Modal</Text>
-
-      <Button title="Abrir Modal" onPress={abrirModal} /> 
-
-      <Modal
-        animationType="fade"            // PROP: tipo de animación al abrir slide, fade, none
-        transparent={true}               // PROP: fondo semitransparente
-        visible={modalVisible}           // PROP: controla visibilidad (STATE)
-        onRequestClose={cerrarModal}     // PROP: acción al cerrar (Android)
-      >
-
-        <View style={styles.modalContainer}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>¡Hola! Este es un Modal.</Text>
-            <Button title="Cerrar" onPress={cerrarModal} /> {/* PROP onPress: cierra modal */}
-          </View>
-        </View>
-      </Modal>
+      <Button title='Abrir' onPress={abrir}/>
     </View>
+    <BottomSheet
+      ref = {bottomSheetRef}
+      snapPoints = {snap}
+      enablePanDownToClose = {true}
+      backgroundStyle = {styles.BSheet}
+      >
+        <BottomSheetView style = {styles.BView}>
+
+          <Text style = {styles.BText}>Ejemplo bottomsheet</Text>
+          <Image style = {styles.IMG}
+          source= {require('../assets/hogwarts-harry-potter-11461.jpg')}></Image>
+        </BottomSheetView>
+    </BottomSheet>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000000ff',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#EAEAEA',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  BSheet:{
+    backgroundColor:'#840081ff'
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.4)',
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 15,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalText: {
-    marginBottom: 15,
-    fontSize: 16,
-  },
+  BView:{
+    flex:1,
+    alignItems: 'center'
+},
+IMG: {
+  marginTop: 50,
+  height:200,
+  width: 200
+}
 });
