@@ -8,9 +8,12 @@ export default function Profile({navigation}){
                     <Text style = {styles.buttonText}>Ir al configuración </Text>
                 </Pressable>
 
-                   <Pressable style={[styles.button, styles.buttonHome]} onPress={()=> navigation.navigate('Home')}>
-                            <Text style = {styles.buttonText}> Volver a home </Text>
-                        </Pressable>
+        <Pressable 
+        style={styles.button}
+        onPress={() => navigation.navigate('Home')}
+      >
+        <Text style={styles.buttonText}>Volver al menú</Text>
+      </Pressable>
     </View>
     );
 }
