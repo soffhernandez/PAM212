@@ -52,6 +52,43 @@ export class UsuarioController {
     }
   }
 
+  async modificarUsuario(id, nombre) {
+    try {
+      if (!id) throw new Error('ID inválido');
+      Usuario.validar(nombre);
+
+      const actualizado = await DatabaseService.modificar(id, nombre.trim());
+
+      this.notifyListeners();
+
+      return new Usuario(
+        actualizado.id,
+        actualizado.nombre,
+        actualizado.fecha_creacion || new Date().toISOString()
+      );
+    } catch (error) {
+      console.error('Error al modificar usuario:', error);
+      throw error;
+    }
+  }
+
+  
+async eliminarUsuario(id) {
+  try {
+    if (!id) throw new Error('ID inválido');
+    
+    await DatabaseService.eliminar(id);
+
+    this.notifyListeners();
+    return true;
+  } catch (error) {
+    console.error('Error al eliminar usuario:', error);
+    throw error;
+  }
+}
+
+
+
 addListener(callback) {
   this.listeners.push(callback);
 }

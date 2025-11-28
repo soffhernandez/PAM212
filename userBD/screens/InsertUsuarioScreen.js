@@ -10,7 +10,8 @@ export default function UsuarioView() {
   const [nombre, setNombre] = useState('');
   const [loading, setLoading] = useState(true);
   const [guardando, setGuardando] = useState(false);
-
+  const [nombreAEditar, setNombreAEditar]= useState('');
+  const [idAEditar, setIdAEditar]= useState(null);
 
   const cargarUsuarios = useCallback(async () => {
     try {
@@ -58,6 +59,32 @@ export default function UsuarioView() {
     }
   };
 
+    const formModificar=(item)=>{
+    setIdAEditar(item.id);
+    setNombreAEditar(item.nombre);
+
+  }
+  const guardarEditado= async()=>{
+    try{
+      await controller.modificarUsuario(idAEditar,nombreAEditar);
+      Alert.alert("Se actualizó", `Nuevo nombre: ${nombreAEditar}`);
+      setIdAEditar(null); 
+      setNombreAEditar('');
+    }catch(error){
+      Alert.alert('Error: ', error.message);
+    }
+  }
+const handleEliminar = async (id) => {
+  try {
+    console.log('ELIMINANDO ID:', id);
+    await controller.eliminarUsuario(id);   // ELIMINA
+    await cargarUsuarios();                 // REFRESCA LA LISTA
+    alert('Se va a borrar eh', 'Usuario eliminado');
+  } catch (error) {
+    console.log(error);
+    alert('Error', error.message);
+  }
+};
 
   const renderUsuario = ({ item, index }) => (
     <View style={styles.userItem}>
@@ -68,6 +95,10 @@ export default function UsuarioView() {
         <Text style={styles.userName}>{item.nombre}</Text>
         <Text style={styles.userId}>ID: {item.id}</Text>
         <Text style={styles.userDate}>
+          <TouchableOpacity 
+          style={styles.editButton} 
+          onPress={() => formModificar(item)}
+          ><Text style={styles.editText}>Editar</Text></TouchableOpacity>
           {
             new Date(item.fechaCreacion).toLocaleDateString('es-MX', {
               year: 'numeric',
@@ -76,8 +107,13 @@ export default function UsuarioView() {
             })
           }
         </Text>
+      <TouchableOpacity
+  style={[styles.editButton, { backgroundColor: "#007AFF" }]} 
+  onPress={() => handleEliminar(item.id)}
+>
+  <Text style={styles.editText}>Eliminar</Text>
+</TouchableOpacity>
       </View>
-
     </View>
   );
 
@@ -88,7 +124,7 @@ export default function UsuarioView() {
         {Platform.OS === 'web' ? ' WEB (LocalStorage)' : ` ${Platform.OS.toUpperCase()} (SQLite)`}
       </Text>
 
-      {/* Zona del INSERT */}
+  
 
       <View style={styles.insertSection}>
         <Text style={styles.sectionTitle}> Insertar Usuario</Text>
@@ -109,8 +145,37 @@ export default function UsuarioView() {
           </Text>
         </TouchableOpacity>
       </View>
+       
 
-      {/* Zona del SELECT */}
+{idAEditar && (
+  <View style={styles.insertSection}>
+    <Text style={styles.sectionTitle}>Editar Usuario</Text>
+
+    <TextInput
+      style={styles.input}
+      value={nombreAEditar}
+      onChangeText={setNombreAEditar}
+    />
+
+    <TouchableOpacity
+      style={styles.button}
+      onPress={guardarEditado}
+    >
+      <Text style={styles.buttonText}>Guardar Cambios</Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity
+      onPress={() => {
+        setIdAEditar(null);
+        setNombreAEditar('');
+      }}
+    >
+      <Text style={{color:'red', textAlign:'center', marginTop:10}}>Cancelar</Text>
+    </TouchableOpacity>
+  </View>
+)}
+
+      
       <View style={styles.selectSection}>
         <View style={styles.selectHeader}>
           <Text style={styles.sectionTitle}>Lista de Usuarios</Text>
@@ -324,4 +389,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1976D2',
   },
+  editButton: {
+  marginTop: 8,
+  padding: 6,
+  backgroundColor: '#1976D2',
+  borderRadius: 6,
+  alignSelf: 'flex-start',
+},
+editText: {
+  color: '#fff',
+  fontWeight: '600',
+  fontSize: 12,
+}
 });

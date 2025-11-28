@@ -16,7 +16,7 @@ class DatabaseService {
       this.db = await SQLite.openDatabaseAsync("miapp.db");
 
       await this.db.execAsync(`
-        CREATE TABLE IF NOT EXISTS Usuarios (
+        CREATE TABLE IF NOT EXISTS usuarios (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           nombre TEXT NOT NULL,
           fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -49,7 +49,7 @@ class DatabaseService {
         return nuevoUsuario;
     }else{
         const result = await this.db.runAsync(
-            'INSERT INTO usuarios(nombre VALUES(?)',
+            'INSERT INTO usuarios(nombre) VALUES(?)',
             nombre
         );
         return {
@@ -59,6 +59,42 @@ class DatabaseService {
         };
     }
   }
+ async modificar(id, nombre){
+        if(Platform.OS==='web'){
+            const usuarios= await this.getAll();
+            const indice= usuarios.findIndex(u=>u.id===id);
+            if(indice!==-1){
+                usuarios[indice].nombre= nombre;
+                localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
+                return usuarios[indice];
+            }
+            return null;
+        }else{
+            await this.db.runAsync(
+                'UPDATE usuarios SET nombre= ? WHERE id= ?',
+                [nombre, id]
+            );
+            return {id, nombre};
+        }
+    }
+async eliminar(id){
+  if(Platform.OS==='web'){
+    const usuarios = await this.getAll();
+    const filtro = usuarios.filter(u => u.id !== id);
+    localStorage.setItem(this.storageKey, JSON.stringify(filtro));
+    return true;
+  } else {
+    const result = await this.db.runAsync(
+      'DELETE FROM usuarios WHERE id = ?;',
+      [id]   // <- importante: paso como array
+    );
+    return true;
+  }
+}
+
+
+
+
 }
 
 export default new DatabaseService();
